@@ -1,23 +1,28 @@
 <!-- BEGIN_TF_DOCS -->
-[![Tests](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-scaffolding/actions/workflows/test.yml)
+[![Tests](https://github.com/netascode/terraform-aci-fabric-scheduler/actions/workflows/test.yml/badge.svg)](https://github.com/netascode/terraform-aci-fabric-scheduler/actions/workflows/test.yml)
 
-# Terraform ACI Scaffolding Module
+# Terraform ACI Scheduler Module
 
-Description
+Manages ACI Fabric Scheduler
 
 Location in GUI:
-`Tenants` » `XXX`
+`Admin` » `Schedulers` » `Fabric`
 
 ## Examples
 
 ```hcl
-module "aci_scaffolding" {
-  source  = "netascode/scaffolding/aci"
+module "aci_fabric_scheduler" {
+  source  = "netascode/fabric-scheduler/aci"
   version = ">= 0.0.1"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
+  name        = "SCHED1"
   description = "My Description"
+  recurring_windows = [{
+    name   = "EVEN-DAY"
+    day    = "even-day"
+    hour   = 2
+    minute = 10
+  }]
 }
 
 ```
@@ -39,20 +44,21 @@ module "aci_scaffolding" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_name"></a> [name](#input\_name) | Tenant name. | `string` | n/a | yes |
-| <a name="input_alias"></a> [alias](#input\_alias) | Tenant alias. | `string` | `""` | no |
-| <a name="input_description"></a> [description](#input\_description) | Tenant description. | `string` | `""` | no |
+| <a name="input_name"></a> [name](#input\_name) | Fabric scheduler name. | `string` | n/a | yes |
+| <a name="input_description"></a> [description](#input\_description) | Description. | `string` | `""` | no |
+| <a name="input_recurring_windows"></a> [recurring\_windows](#input\_recurring\_windows) | List of recurring windows. Choices `day`: `every-day`, `odd-day`, `even-day`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`. Allowed values `hour`: 0-23. Allowed values `minute`: 0-59. | <pre>list(object({<br>    name   = string<br>    day    = optional(string)<br>    hour   = optional(number)<br>    minute = optional(number)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `fvTenant` object. |
-| <a name="output_name"></a> [name](#output\_name) | Tenant name. |
+| <a name="output_dn"></a> [dn](#output\_dn) | Distinguished name of `trigSchedP` object. |
+| <a name="output_name"></a> [name](#output\_name) | Fabric scheduler name. |
 
 ## Resources
 
 | Name | Type |
 |------|------|
-| [aci_rest.fvTenant](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.trigRecurrWindowP](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
+| [aci_rest.trigSchedP](https://registry.terraform.io/providers/netascode/aci/latest/docs/resources/rest) | resource |
 <!-- END_TF_DOCS -->

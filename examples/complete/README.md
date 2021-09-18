@@ -1,5 +1,5 @@
 <!-- BEGIN_TF_DOCS -->
-# Scaffolding Example
+# Fabric Scheduler Example
 
 To run this example you need to execute:
 
@@ -12,13 +12,18 @@ $ terraform apply
 Note that this example will create resources. Resources can be destroyed with `terraform destroy`.
 
 ```hcl
-module "aci_scaffolding" {
-  source  = "netascode/scaffolding/aci"
+module "aci_fabric_scheduler" {
+  source  = "netascode/fabric-scheduler/aci"
   version = ">= 0.0.1"
 
-  name        = "ABC"
-  alias       = "ABC-ALIAS"
+  name        = "SCHED1"
   description = "My Description"
+  recurring_windows = [{
+    name   = "EVEN-DAY"
+    day    = "even-day"
+    hour   = 2
+    minute = 10
+  }]
 }
 
 ```
