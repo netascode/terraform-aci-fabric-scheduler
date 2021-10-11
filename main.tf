@@ -9,7 +9,7 @@ resource "aci_rest" "trigSchedP" {
 
 resource "aci_rest" "trigRecurrWindowP" {
   for_each   = { for win in var.recurring_windows : win.name => win }
-  dn         = "${aci_rest.trigSchedP.id}/recurrwinp-${each.value.name}"
+  dn         = "${aci_rest.trigSchedP.dn}/recurrwinp-${each.value.name}"
   class_name = "trigRecurrWindowP"
   content = {
     name   = each.value.name
