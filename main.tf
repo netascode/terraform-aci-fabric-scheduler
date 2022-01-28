@@ -1,4 +1,4 @@
-resource "aci_rest" "trigSchedP" {
+resource "aci_rest_managed" "trigSchedP" {
   dn         = "uni/fabric/schedp-${var.name}"
   class_name = "trigSchedP"
   content = {
@@ -7,9 +7,9 @@ resource "aci_rest" "trigSchedP" {
   }
 }
 
-resource "aci_rest" "trigRecurrWindowP" {
+resource "aci_rest_managed" "trigRecurrWindowP" {
   for_each   = { for win in var.recurring_windows : win.name => win }
-  dn         = "${aci_rest.trigSchedP.dn}/recurrwinp-${each.value.name}"
+  dn         = "${aci_rest_managed.trigSchedP.dn}/recurrwinp-${each.value.name}"
   class_name = "trigRecurrWindowP"
   content = {
     name   = each.value.name

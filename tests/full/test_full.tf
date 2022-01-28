@@ -5,8 +5,8 @@ terraform {
     }
 
     aci = {
-      source  = "netascode/aci"
-      version = ">=0.2.0"
+      source  = "CiscoDevNet/aci"
+      version = ">=2.0.0"
     }
   }
 }
@@ -24,7 +24,7 @@ module "main" {
   }]
 }
 
-data "aci_rest" "trigSchedP" {
+data "aci_rest_managed" "trigSchedP" {
   dn = "uni/fabric/schedp-${module.main.name}"
 
   depends_on = [module.main]
@@ -35,19 +35,19 @@ resource "test_assertions" "trigSchedP" {
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.trigSchedP.content.name
+    got         = data.aci_rest_managed.trigSchedP.content.name
     want        = module.main.name
   }
 
   equal "descr" {
     description = "descr"
-    got         = data.aci_rest.trigSchedP.content.descr
+    got         = data.aci_rest_managed.trigSchedP.content.descr
     want        = "My Description"
   }
 }
 
-data "aci_rest" "trigRecurrWindowP" {
-  dn = "${data.aci_rest.trigSchedP.id}/recurrwinp-EVEN-DAY"
+data "aci_rest_managed" "trigRecurrWindowP" {
+  dn = "${data.aci_rest_managed.trigSchedP.id}/recurrwinp-EVEN-DAY"
 
   depends_on = [module.main]
 }
@@ -57,25 +57,25 @@ resource "test_assertions" "trigRecurrWindowP" {
 
   equal "name" {
     description = "name"
-    got         = data.aci_rest.trigRecurrWindowP.content.name
+    got         = data.aci_rest_managed.trigRecurrWindowP.content.name
     want        = "EVEN-DAY"
   }
 
   equal "day" {
     description = "day"
-    got         = data.aci_rest.trigRecurrWindowP.content.day
+    got         = data.aci_rest_managed.trigRecurrWindowP.content.day
     want        = "even-day"
   }
 
   equal "hour" {
     description = "hour"
-    got         = data.aci_rest.trigRecurrWindowP.content.hour
+    got         = data.aci_rest_managed.trigRecurrWindowP.content.hour
     want        = "2"
   }
 
   equal "minute" {
     description = "minute"
-    got         = data.aci_rest.trigRecurrWindowP.content.minute
+    got         = data.aci_rest_managed.trigRecurrWindowP.content.minute
     want        = "10"
   }
 }
