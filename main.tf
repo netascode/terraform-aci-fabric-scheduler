@@ -13,8 +13,8 @@ resource "aci_rest_managed" "trigRecurrWindowP" {
   class_name = "trigRecurrWindowP"
   content = {
     name   = each.value.name
-    day    = each.value.day != null ? each.value.day : "every-day"
-    hour   = each.value.hour != null ? each.value.hour : 0
-    minute = each.value.minute != null ? each.value.minute : 0
+    day    = each.value.day
+    hour   = each.value.hour
+    minute = each.value.minute
   }
 }

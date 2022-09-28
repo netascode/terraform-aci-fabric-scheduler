@@ -23,9 +23,9 @@ variable "recurring_windows" {
   description = "List of recurring windows. Choices `day`: `every-day`, `odd-day`, `even-day`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`. Allowed values `hour`: 0-23. Allowed values `minute`: 0-59."
   type = list(object({
     name   = string
-    day    = optional(string)
-    hour   = optional(number)
-    minute = optional(number)
+    day    = optional(string, "every-day")
+    hour   = optional(number, 0)
+    minute = optional(number, 0)
   }))
   default = []
 

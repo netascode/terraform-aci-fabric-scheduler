@@ -13,7 +13,7 @@ Location in GUI:
 ```hcl
 module "aci_fabric_scheduler" {
   source  = "netascode/fabric-scheduler/aci"
-  version = ">= 0.1.0"
+  version = ">= 0.2.0"
 
   name        = "SCHED1"
   description = "My Description"
@@ -30,7 +30,7 @@ module "aci_fabric_scheduler" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0 |
 | <a name="requirement_aci"></a> [aci](#requirement\_aci) | >= 2.0.0 |
 
 ## Providers
@@ -45,7 +45,7 @@ module "aci_fabric_scheduler" {
 |------|-------------|------|---------|:--------:|
 | <a name="input_name"></a> [name](#input\_name) | Fabric scheduler name. | `string` | n/a | yes |
 | <a name="input_description"></a> [description](#input\_description) | Description. | `string` | `""` | no |
-| <a name="input_recurring_windows"></a> [recurring\_windows](#input\_recurring\_windows) | List of recurring windows. Choices `day`: `every-day`, `odd-day`, `even-day`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`. Allowed values `hour`: 0-23. Allowed values `minute`: 0-59. | <pre>list(object({<br>    name   = string<br>    day    = optional(string)<br>    hour   = optional(number)<br>    minute = optional(number)<br>  }))</pre> | `[]` | no |
+| <a name="input_recurring_windows"></a> [recurring\_windows](#input\_recurring\_windows) | List of recurring windows. Choices `day`: `every-day`, `odd-day`, `even-day`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`, `Sunday`. Allowed values `hour`: 0-23. Allowed values `minute`: 0-59. | <pre>list(object({<br>    name   = string<br>    day    = optional(string, "every-day")<br>    hour   = optional(number, 0)<br>    minute = optional(number, 0)<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
